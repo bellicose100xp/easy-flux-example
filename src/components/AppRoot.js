@@ -2,18 +2,34 @@
  * Created by admin on 8/29/2015.
  */
 import React from 'react';
+import ListStore from '../stores/ListStore';
+import FormInput from './formInput';
+
+let getListState = () => {
+    return {
+        items: ListStore.getItems()
+    }
+};
 
 class AppRoot extends React.Component {
+
+    constructor(){
+        super();
+        this.state = getListState();
+    }
+
     render() {
-        let itemHtml = <li>Hello React and Elements 55</li>;
 
-        return (
-           <ul>
+        let items = ListStore.getItems();
 
-                  {itemHtml}
+        let itemHtml = items.map(item => {
+            return <li key={item.id}> {item.name} </li>
+        });
 
-          </ul>
-        );
+        return <ul>
+            {itemHtml}
+            <FormInput />
+        </ul>;
     }
 }
 
